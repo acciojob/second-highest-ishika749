@@ -1,47 +1,65 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
-</head>
-
-<body>	
-	<script>
-		function secondHighest(arr) {
-    if (arr.length < 2) return -Infinity;
-
-    let max = -Infinity;
-    let secondMax = -Infinity;
-
-    for (let num of arr) {
-        if (num > max) {
-            secondMax = max;
-            max = num;
-        } else if (num < max && num > secondMax) {
-            secondMax = num;
+    <meta charset="UTF-8">
+    <title>Second Highest Finder</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
         }
-    }
+        input, button {
+            padding: 8px;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 100%;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
 
-    return secondMax === -Infinity ? -Infinity : secondMax;
-}
+    <h2>Find the Second Highest Number</h2>
+    <p>Enter numbers separated by commas (e.g., 4,1,7,9):</p>
 
-		}
+    <input type="text" id="arrayInput" placeholder="Enter numbers">
+    <button onclick="Main()">Find Second Highest</button>
 
-		function Main() {
-			var n = prompt("Enter the number of elements");
-			var arr = [];
-			for (var i = 0; i < n; i++) {
-				arr[i] = prompt("Enter element " + (i+1));
-			}
-			alert(secondHighest(arr));
-		}
-		Main();
-	</script>
+    <div id="result"></div>
 
-    <script type="text/javascript" src="./script.js">
-</script>
+    <script>
+        function secondHighest(arr) {
+            if (arr.length < 2) return -Infinity;
+
+            let highest = -Infinity;
+            let second = -Infinity;
+
+            for (let num of arr) {
+                if (num > highest) {
+                    second = highest;
+                    highest = num;
+                } else if (num > second && num < highest) {
+                    second = num;
+                }
+            }
+
+            return second === -Infinity ? -Infinity : second;
+        }
+
+        function Main() {
+            const input = document.getElementById("arrayInput").value;
+            const arr = input.split(",").map(num => parseInt(num.trim())).filter(num => !isNaN(num));
+
+            const result = secondHighest(arr);
+            document.getElementById("result").innerText = "Second Highest: " + result;
+        }
+    </script>
 
 </body>
-
 </html>
